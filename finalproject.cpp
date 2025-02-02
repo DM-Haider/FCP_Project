@@ -1,6 +1,7 @@
 #include<iostream>
 #include<iomanip>
-#include<string>
+#include <string>
+#include <fstream>
 using namespace std;
 
 const int max_stu = 50;
@@ -20,6 +21,54 @@ struct Student{
     int courseCount;
 
 };
+
+void registerStudent(Student students[], int &studentCount) {
+    if (studentCount>= max_stu){
+        cout <<"No more registerstion capacity. limit has reached";
+        return; }
+
+    Student newStudent;
+    cout << "Enter first name: ";
+    cin >> newStudent.firstname;
+    cout << "Enter last name: ";
+    cin >> newStudent.lastname;
+    cout << "Enter student ID: ";
+    cin >> newStudent.studentID;
+    cout << "Enter magor: ";
+    cin >> newStudent.major;
+    newStudent.avg = 0.0;
+    newStudent.courseCount = 0;
+
+    students[studentCount] = newStudent ;
+    studentCount++;
+    cout << "Student registered successfully!\n";
+
+}
+
+void registerCourse (Student students[], int &studentCount){
+    string student_ID;
+    cout << "Enter student ID: ";
+    cin>> student_ID;
+
+    for (int i= 0; i< studentCount; i++){
+        if (students[i].studentID == student_ID){
+
+            if (students[i].courseCount >= max_cour){
+                cout << "No more capacity for adding courses. limit has reached";
+                return;
+            }
+
+
+
+        } 
+    
+    
+    }
+
+}
+
+
+
 void issueReportCard(const Student students[], int studentCount) {
     string studentID;
     cout << "Enter student ID: ";
