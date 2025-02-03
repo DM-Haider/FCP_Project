@@ -70,7 +70,7 @@ void registerCourse(Student students[], int studentCount) {
             students[i].courses[students[i].courseCount] = newCourse;
             students[i].courseCount++;
 
-            // محاسبه معدل بر اساس واحدها
+            
             double totalGradePoints = 0.0;
             int totalUnits = 0;
             for (int j = 0; j < students[i].courseCount; j++) {
