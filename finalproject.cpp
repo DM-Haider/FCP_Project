@@ -45,27 +45,66 @@ void registerStudent(Student students[], int &studentCount) {
 
 }
 
-void registerCourse (Student students[], int &studentCount){
-    string student_ID;
-    cout << "Enter student ID: ";
-    cin>> student_ID;
+void registerCourse(Student students[], int studentCount) {
+    string studentID;
+    cout << "Enter student ID: ";
+    cin >> studentID;
 
-    for (int i= 0; i< studentCount; i++){
-        if (students[i].studentID == student_ID){
+    for (int i = 0; i < studentCount; i++) {
+        if (students[i].studentID == studentID) {
 
-            if (students[i].courseCount >= max_cour){
-                cout << "No more capacity for adding courses. limit has reached";
-                return;
-            }
+            if (students[i].courseCount >= max_cour) {
+                cout << "Cannot register more courses. Maximum limit reached.\n";
+                return;
+                
+            }
 
+            string courseName;
+            double grade;
+            cout << "Enter course name: ";
+            cin >> courseName;
+            cout << "Enter grade: ";
+            cin >> grade;
 
+            students[i].courses[students[i].courseCount] = courseName;
+            students[i].grades[students[i].courseCount] = grade;
+            students[i].courseCount++;
 
-        } 
-    
-    
-    }
+            double total = 0.0;
+            for (int j = 0; j < students[i].courseCount; j++) {
+                total+= students[i].grades[j];
+            }
+            students[i].avg = total / students[i].courseCount;
 
+            cout << "Course registered successfully!\n";
+            return;
+        }
+    }
+    cout << "Student not found!\n";
 }
+
+void listStudentsByMajor(const Student students[], int studentCount, const string& major) {
+    cout << "List of students in " << major << ":\n";
+    for (int i = 0; i < studentCount; i++) {
+        if (students[i].major == major) {
+            cout << "Name: " << students[i].firstname << " " << students[i].lastname
+                 << ", ID: " << students[i].studentID
+                 << ", avg: " << fixed << setprecision(2) << students[i].avg << "\n";
+        }
+    }
+}
+
+
+void listAllStudents(const Student students[], int studentCount){
+    cout << "List of all students:\n";
+    for (int i = 0; i < studentCount; i++) {
+        cout << "Name: " << students[i].firstname <<" "<< students[i].lastname
+             <<", ID: "<< students[i].studentID
+             << ", Major: " << students[i].major
+             << ", avg: " << fixed << setprecision(2) << students[i].avg << "\n";
+    }
+}
+
 
 
 
@@ -88,6 +127,7 @@ void issueReportCard(const Student students[], int studentCount) {
     }
     cout << "Student not found!\n";
 }
+
 
 void saveDataToFile(const Student students[], int studentCount, const string& filename) {
     ofstream outFile(filename);
